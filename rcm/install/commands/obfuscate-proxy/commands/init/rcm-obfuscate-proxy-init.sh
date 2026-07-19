@@ -35,53 +35,16 @@ unset _new_arguments
 [ -n "$help" ] && { usage; exit 0; }
 [ -n "$version" ] && { e $RCM_EXTENSION_VERSION; x; }
 
+# Require.
+require vendor/ijortengab/rcm/functions/utility/apt-install.sh
+
+# ------------------------------------------------------------------------------
+
 # Title.
-title rcm-obfuscate-proxy-autoinstaller
+title rcm obfuscate-proxy init
 ____
 
-# Dependency.
-while IFS= read -r line; do
-    [[ -z "$line" ]] || command -v `cut -d: -f1 <<< "${line}"` >/dev/null || { error Unable to proceed, command not found: '`'$line'`'.; x; }
-done <<< `printHelp 2>/dev/null | sed -n '/^Dependency:/,$p' | sed -n '2,/^\s*$/p' | sed 's/^ *//g'`
-
-# Functions.
-downloadApplication() {
-    local aptnotfound=
-    chapter Melakukan instalasi aplikasi.
-    code apt install "$@"
-    [ -z "$aptinstalled" ] && aptinstalled=$(apt --installed list 2>/dev/null)
-    for i in "$@"; do
-        if ! grep -q "^$i/" <<< "$aptinstalled";then
-            aptnotfound+=" $i"
-        fi
-    done
-    if [ -n "$aptnotfound" ];then
-        __ Menginstal.
-        code apt install -y"$aptnotfound"
-        apt install -y --no-install-recommends $aptnotfound
-        aptinstalled=$(apt --installed list 2>/dev/null)
-    else
-        __ Aplikasi sudah terinstall seluruhnya.
-    fi
-}
-validateApplication() {
-    local aptnotfound=
-    for i in "$@"; do
-        if ! grep -q "^$i/" <<< "$aptinstalled";then
-            aptnotfound+=" $i"
-        fi
-    done
-    if [ -n "$aptnotfound" ];then
-        __; red Gagal menginstall aplikasi:"$aptnotfound"; x
-    fi
-}
-
-# Requirement, validate, and populate value.
-chapter Dump variable.
-____
-
-downloadApplication obfs4proxy
-validateApplication obfs4proxy
+apt-install obfs4proxy
 ____
 
 exit 0
