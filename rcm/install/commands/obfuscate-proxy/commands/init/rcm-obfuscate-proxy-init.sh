@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RCM_EXTENSION_VERSION=0.0.1
+RCM_EXTENSION_VERSION=0.0.2-alpha.1
 
 # Usage Functions.
 usage() {
