@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Define variables and constants.
 RCM_EXTENSION_VERSION=0.0.2-alpha.1
 
 # Usage Functions.
@@ -41,9 +42,6 @@ unset _new_arguments
 [ -n "$help" ] && { usage; exit 0; }
 [ -n "$version" ] && { e $RCM_EXTENSION_VERSION; x; }
 
-# Require.
-require vendor/ijortengab/bash/functions/array-search.sh
-
 # ------------------------------------------------------------------------------
 
 # Title.
@@ -56,6 +54,7 @@ require command netstat
 require command lsof
 require command obfs4proxy
 require command adduser
+require vendor/ijortengab/bash/functions/array-search.sh
 
 # Require, validate, and populate value.
 chapter Variable dump.

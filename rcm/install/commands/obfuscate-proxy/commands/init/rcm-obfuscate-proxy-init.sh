@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Define variables and constants.
 RCM_EXTENSION_VERSION=0.0.2-alpha.1
 
 # Usage Functions.
@@ -35,14 +36,14 @@ unset _new_arguments
 [ -n "$help" ] && { usage; exit 0; }
 [ -n "$version" ] && { e $RCM_EXTENSION_VERSION; x; }
 
-# Require.
-require vendor/ijortengab/rcm/functions/utility/apt-install.sh
-
 # ------------------------------------------------------------------------------
 
 # Title.
 title rcm obfuscate-proxy init
 ____
+
+# Dependency.
+require vendor/ijortengab/rcm/functions/utility/apt-install.sh
 
 apt-install obfs4proxy
 ____
